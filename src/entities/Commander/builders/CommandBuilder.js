@@ -8,7 +8,7 @@ export class BatCommandBuilder {
     #buildCommand(entity, option = {script: '', command_bat: ''}) {
         const {script, command_bat} = option
         const entities = {
-            [ENTITIES[0]]: () => this.#createCommandBrowser(script),
+            [ENTITIES[0]]: () => this.#createCommandBrowser(command_bat, script),
             [ENTITIES[1]]: () => this.#createCommandApplication(command_bat, script)
         }
         return entities[entity].call()
@@ -19,7 +19,7 @@ export class BatCommandBuilder {
             let command_bat = ''
             const entity = script.entity
             const entities = {
-                [ENTITIES[0]]: () => command_bat += this.#buildCommand(ENTITIES[0], {script}),
+                [ENTITIES[0]]: () => command_bat += this.#buildCommand(ENTITIES[0], {command_bat, script}),
                 [ENTITIES[1]]: () => command_bat += this.#buildCommand(ENTITIES[1], {
                     script,
                     command_bat
@@ -30,8 +30,16 @@ export class BatCommandBuilder {
         })
     }
 
-    #createCommandBrowser(script) {
-        return `start ${script.href}`
+    createCommandBrowser(command_bat, script) {
+        return this.#createCommandBrowser(command_bat, script)
+    }
+
+    createCommandApplication(command_bat, script) {
+        return this.#createCommandApplication(command_bat, script)
+    }
+
+    #createCommandBrowser(command_bat, script) {
+        return command_bat += `start ${script.href}`
     }
 
     #createCommandApplication(command_bat, script) {

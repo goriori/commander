@@ -1,6 +1,5 @@
 import {ENTITIES} from "../settings/index.js";
 
-
 export default [
     {
         entity: ENTITIES[0],

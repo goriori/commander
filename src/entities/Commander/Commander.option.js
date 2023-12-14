@@ -2,7 +2,7 @@ import {generateId} from "../../utils/id.js";
 import * as path from "path";
 
 const __dirname = path.resolve()
-export default [
+export const commands = [
     {
         id: generateId(),
         command: 'download_file',
@@ -12,6 +12,11 @@ export default [
         id: generateId(),
         command: 'workspace',
         handler: () => 'openWorkspace'
+    },
+    {
+        id: generateId(),
+        command: 'open_name',
+        handler:()=> 'openName'
     },
     {
         id: generateId(),
