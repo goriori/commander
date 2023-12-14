@@ -1,11 +1,15 @@
+import {ENTITIES} from "../../settings/index.js";
+import {Bat} from "../File/index.js";
+import {BatCommandBuilder} from "./builders/CommandBuilder.js";
 import applicationConfig from "../../configs/application.config.js";
 import commandsConfig from "./Commander.option.js";
-import {Bat} from "../File/index.js";
 import child_process from "child_process";
+
 
 export class Commander {
     constructor() {
         this.commands = [...commandsConfig]
+
     }
 
     run(command) {
@@ -16,21 +20,7 @@ export class Commander {
     }
 
     openWorkspace() {
-        const bat_command_array = applicationConfig.map(script => {
-            let command = ''
-            const entity = script.entity
-            if (entity === 'browser-page') {
-                command += `start ${script.href}`
-            } else if (entity === 'application') {
-                const parse_full_path = script.path.split('\\')
-                const application_file = parse_full_path[parse_full_path.length - 1]
-                parse_full_path[parse_full_path.length - 1] = ''
-                const path_to_file = parse_full_path.join('\\')
-                command += `cd ${path_to_file} \n`
-                command += `start ${application_file}`
-            }
-            return command
-        })
+        const bat_command_array = new BatCommandBuilder().generateCommandArray()
         const bat_file = new Bat('workspace')
         bat_file.createBat()
         bat_file.editBat(bat_command_array.join('\n'))

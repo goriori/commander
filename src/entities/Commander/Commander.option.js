@@ -1,8 +1,5 @@
 import {generateId} from "../../utils/id.js";
-import applicationConfig from "../../configs/application.config.js";
-import * as child_process from "child_process";
 import * as path from "path";
-import {Bat} from "../File/index.js";
 
 const __dirname = path.resolve()
 export default [
