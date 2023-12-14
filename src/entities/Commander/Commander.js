@@ -1,9 +1,7 @@
-import {ENTITIES} from "../../settings/index.js";
 import {Bat} from "../File/index.js";
 import {BatCommandBuilder} from "./builders/CommandBuilder.js";
-import applicationConfig from "../../configs/application.config.js";
 import commandsConfig from "./Commander.option.js";
-import child_process from "child_process";
+import {Process} from "../Process/Process.js";
 
 
 export class Commander {
@@ -19,18 +17,19 @@ export class Commander {
         return this[actionCommander].call()
     }
 
+
     openWorkspace() {
         const bat_command_array = new BatCommandBuilder().generateCommandArray()
         const bat_file = new Bat('workspace')
         bat_file.createBat()
         bat_file.editBat(bat_command_array.join('\n'))
-        child_process.exec(bat_file.path_to_file, (error, stdout, stderr) => {
-            if (error) return console.log(error)
-            console.log(stdout, stderr)
-        })
+        const process = new Process()
+        process.runProcess(bat_file.path_to_file)
     }
 
     test() {
+        const process = new Process()
+        process.runProcess("node C:/goriori/plugins/folder-parser/index.js")
         console.log('this test command ')
     }
 
