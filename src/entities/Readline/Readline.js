@@ -1,4 +1,4 @@
-import readline from "./Readline.js";
+import readline from "readline";
 
 
 export class Readline {

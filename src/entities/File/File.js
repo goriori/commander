@@ -29,8 +29,11 @@ export class File {
         return !!file
     }
 
-    editFile(path, data) {
-        this.file_system.appendFileSync(path, JSON.stringify(data))
+    editFile(path, data, type = 'BAT') {
+        let convertData
+        if(type === 'JSON') convertData = JSON.stringify(data)
+        if(type === 'BAT') convertData = data
+        this.file_system.appendFileSync(path, convertData)
     }
 
 }

@@ -6,7 +6,7 @@ const __dirname = path.resolve()
 export class Bat extends File {
     constructor(file_name) {
         super();
-        this.path_directory = __dirname + '/public/bat'
+        this.path_directory = __dirname + '/files/bat'
         this.file_name = file_name
         this.path_to_file = null;
         this.init(file_name, 'bat')
@@ -21,7 +21,7 @@ export class Bat extends File {
     editBat(data) {
         const existFile = this.findFile(this.path_to_file)
         if (existFile) {
-            this.editFile( this.path_to_file, data)
+            this.editFile(this.path_to_file, data, 'BAT')
         }
     }
 }
