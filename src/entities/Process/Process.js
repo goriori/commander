@@ -6,7 +6,7 @@ export class Process {
         this.process = child_process
     }
 
-    runProcess(path) {
+    async runProcess(path) {
         this.process.exec(path, (err, stdout, stdin) => {
             if (err) return err
             console.log(stdout)

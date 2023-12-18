@@ -16,16 +16,16 @@ export const commands = [
     {
         id: generateId(),
         command: 'open_name',
-        handler:()=> 'openName'
+        handler: () => 'openName'
     },
     {
         id: generateId(),
         command: 'exit',
-        handler:()=> 'exitProgram'
+        handler: () => 'exitProgram'
     },
     {
         id: generateId(),
         command: 'test',
-        handler:()=> 'test'
+        handler: () => 'test'
     }
 ]

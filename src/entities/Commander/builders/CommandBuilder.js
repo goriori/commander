@@ -43,13 +43,17 @@ export class BatCommandBuilder {
     }
 
     #createCommandApplication(command_bat, script) {
-        console.log('application command: ', script)
         const parse_full_path = script.path.split('\\')
-        const application_file = parse_full_path[parse_full_path.length - 1]
-        parse_full_path[parse_full_path.length - 1] = ''
+        const parse_path_length = parse_full_path.length - 1
+
+        const application_file = parse_full_path[parse_path_length]
+        parse_full_path[parse_path_length] = ''
+
         const path_to_file = parse_full_path.join('\\')
+
         command_bat += `cd ${path_to_file} \n`
         command_bat += `start ${application_file}`
+
         return command_bat
     }
 }

@@ -1,12 +1,11 @@
 import {Bat} from "../File/index.js";
-import {BatCommandBuilder} from "./builders/CommandBuilder.js";
 import {commands} from "./Commander.option.js";
 import {Process} from "../Process/Process.js";
 import {Readline} from "../Readline/Readline.js";
-import applications from "../../configs/application.config.js";
 import {ENTITIES} from "../../settings/index.js";
+import {BatCommandBuilder} from "./builders/CommandBuilder.js";
+import applications from "../../configs/application.config.js";
 
-// TODO: Если выходных файлов не существует - приложение падает, и спустя время файлы создаются.
 export class Commander {
     constructor() {
         this.commands = [...commands]
@@ -21,34 +20,42 @@ export class Commander {
     }
 
 
-    openWorkspace() {
+    async openWorkspace() {
         const bat_command_array = new BatCommandBuilder().generateCommandArray()
         const bat_file = new Bat('workspace')
-        bat_file.createBat()
-        bat_file.editBat(bat_command_array.join('\n'))
+        await bat_file.createBat()
+        await bat_file.editBat(bat_command_array.join('\n'))
         const process = new Process()
-        process.runProcess(bat_file.path_to_file)
+        await process.runProcess(bat_file.path_to_file)
     }
 
     async openName() {
 
         const rl = new Readline()
         const name = await rl.question('Введите имя приложения или страницы: ')
+
         const existName = applications.find(app => app.name === name)
         if (!existName) return false
+
         let command = ''
-        if (existName.entity === ENTITIES[0]) command += new BatCommandBuilder().createCommandBrowser(command, existName)
-        else if (existName.entity === ENTITIES[1]) command += new BatCommandBuilder().createCommandApplication(command, existName)
+        const builder_entity = {
+            [ENTITIES[0]]: () => command += new BatCommandBuilder().createCommandBrowser(command, existName),
+            [ENTITIES[1]]: () => command += new BatCommandBuilder().createCommandApplication(command, existName)
+        }
+        builder_entity[existName.entity].call()
+
         const bat_file = new Bat('open-name')
         bat_file.createBat()
         bat_file.editBat(command)
+
         const process = new Process()
-        process.runProcess(bat_file.path_to_file)
+        await process.runProcess(bat_file.path_to_file)
+
     }
 
-    test() {
+    async test() {
         const process = new Process()
-        process.runProcess("node C:/goriori/plugins/folder-parser/index.js")
+        await process.runProcess("node C:/goriori/plugins/folder-parser/index.js")
         console.log('this test command ')
     }
 
