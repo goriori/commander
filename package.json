@@ -1,6 +1,6 @@
 {
   "name": "export-files",
-  "version": "1.6.0",
+  "version": "1.6.4",
   "description": "",
   "main": "index.js",
   "type": "module",
