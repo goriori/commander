@@ -1,7 +1,7 @@
 import {File_System} from "../File.js";
 import {Dir} from "../Dir/Dir.js";
 import * as path from "path";
-import {DIR_FOR_FILES} from "../../../settings/param.setting.js";
+import {DIR_FOR_FILES, DIR_ENTITIES} from "../../../settings.config.js";
 
 const __dirname = path.resolve()
 

@@ -1,5 +1,5 @@
-import {ENTITIES} from "../../../settings/index.js";
-import applicationConfig from "../../../configs/application.config.js";
+import {ENTITIES} from "../../../../settings.config.js";
+import workspaceConfig from "../../../../workspace.config.js";
 
 export class BatCommandBuilder {
     constructor() {
@@ -15,7 +15,7 @@ export class BatCommandBuilder {
     }
 
     generateCommandArray() {
-        return applicationConfig.map(script => {
+        return workspaceConfig.map(script => {
             let command_bat = ''
             const entity = script.entity
             const entities = {

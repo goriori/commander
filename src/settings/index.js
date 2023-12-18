@@ -1,1 +1,0 @@
-export {ENTITIES} from './param.setting.js'

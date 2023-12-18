@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import {DIR_ENTITIES, DIR_FOR_FILES} from "../../settings/param.setting.js";
+import {DIR_ENTITIES, DIR_FOR_FILES} from "../../settings.config.js";
 
 const __dirname = path.resolve()
 
