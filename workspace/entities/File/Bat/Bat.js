@@ -15,9 +15,9 @@ export class Bat extends File_System {
         this.#init()
     }
 
-    async #init() {
+     #init() {
         const dir = new Dir()
-        const existDir = await dir.findDir(this.path_directory)
+        const existDir =  dir.findDir(this.path_directory)
         if (!existDir) dir.createDir(this.path_directory)
     }
 
@@ -31,5 +31,9 @@ export class Bat extends File_System {
         if (existFile) {
             super.editFile(this.path_to_file, data, 'BAT')
         }
+    }
+
+    deleteBat(){
+        super.deleteFile(this.path_to_file)
     }
 }

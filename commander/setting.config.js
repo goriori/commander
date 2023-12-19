@@ -1,4 +1,4 @@
-const EXPECTATION_TIME = 1 // минуты
+const EXPECTATION_TIME = 10 // минуты
 
 
 export {EXPECTATION_TIME}

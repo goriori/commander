@@ -1,7 +1,7 @@
 import {commands} from "./Commander.option.js";
 import {Process} from "../Process/Process.js";
 import {Readline} from "../Readline/Readline.js";
-import { APPLICATIONS} from "../../../application.config.js";
+import {APPLICATIONS} from "../../../application.config.js";
 
 export class Commander {
     constructor() {
@@ -13,23 +13,25 @@ export class Commander {
         const existsCommand = this.commands.map(comm => comm.command).includes(command)
         if (!existsCommand) return false
         const actionCommander = this.commands.find(comm => comm.command === command).handler()
-        return await this[actionCommander].call()
+        await this[actionCommander].call()
+        return true
     }
 
 
     async openWorkspace() {
         const process = new Process()
         await process.runProject(APPLICATIONS[1].command, APPLICATIONS[1].path)
+        return true
     }
 
     async test() {
+        console.log('test function ')
         const process = new Process()
         await process.runProject(APPLICATIONS[0].command, APPLICATIONS[0].path)
+        return true
     }
-    async python(){
-        const process = new Process()
-        await process.runProject(APPLICATIONS[2].command, APPLICATIONS[2].path)
-    }
+
+
     downloadFile() {
         console.log('download File')
     }

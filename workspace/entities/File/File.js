@@ -61,4 +61,9 @@ export class File_System {
         this.file_system.appendFileSync(path, convertData)
     }
 
+    deleteFile(path) {
+        this.file_system.rmSync(path)
+        return true
+    }
+
 }

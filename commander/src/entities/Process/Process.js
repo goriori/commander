@@ -9,8 +9,10 @@ export class Process {
     async runProject(command, path) {
         try {
             await this.process.execSync(command, {cwd: path})
+            return true
         } catch (e) {
             console.log(e)
+            return false
         }
     }
 

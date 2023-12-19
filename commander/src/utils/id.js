@@ -1,3 +1,4 @@
+const {random} = Math
 export const generateId = () => {
-    return Math.random().toString(16).slice(2)
+    return random().toString(16).slice(2)
 }
