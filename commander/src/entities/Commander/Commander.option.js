@@ -27,5 +27,10 @@ export const commands = [
         id: generateId(),
         command: 'test',
         handler: () => 'test'
+    },
+    {
+        id: generateId(),
+        command: 'python',
+        handler: () => 'python'
     }
 ]

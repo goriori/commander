@@ -1,7 +1,7 @@
 import {commands} from "./Commander.option.js";
 import {Process} from "../Process/Process.js";
 import {Readline} from "../Readline/Readline.js";
-import { APPLICATIONS} from "../../settings/application.setting.js";
+import { APPLICATIONS} from "../../../application.config.js";
 
 export class Commander {
     constructor() {
@@ -26,7 +26,10 @@ export class Commander {
         const process = new Process()
         await process.runProject(APPLICATIONS[0].command, APPLICATIONS[0].path)
     }
-
+    async python(){
+        const process = new Process()
+        await process.runProject(APPLICATIONS[2].command, APPLICATIONS[2].path)
+    }
     downloadFile() {
         console.log('download File')
     }

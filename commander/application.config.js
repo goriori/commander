@@ -1,4 +1,4 @@
-import {generateId} from "../utils/id.js";
+import {generateId} from "./src/utils/id.js";
 
 export const APPLICATIONS = [
     {
@@ -12,5 +12,5 @@ export const APPLICATIONS = [
         name: 'workspace',
         path: 'C:\\goriori\\github\\commander\\workspace',
         command: 'node index.js'
-    }
+    },
 ]
