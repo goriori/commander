@@ -1,5 +1,5 @@
-import {ENTITIES} from "../../../../settings.config.js";
 import workspaceConfig from "../../../../workspace.config.js";
+import {ENTITIES} from "../../../../settings.config.js";
 
 export class BatCommandBuilder {
     constructor() {
@@ -19,11 +19,8 @@ export class BatCommandBuilder {
             let command_bat = ''
             const entity = script.entity
             const entities = {
-                [ENTITIES[0]]: () => command_bat += this.#buildCommand(ENTITIES[0], {command_bat, script}),
-                [ENTITIES[1]]: () => command_bat += this.#buildCommand(ENTITIES[1], {
-                    script,
-                    command_bat
-                })
+                [ENTITIES[0]]: () => command_bat += this.#buildCommand(ENTITIES[0], {script, command_bat,}),
+                [ENTITIES[1]]: () => command_bat += this.#buildCommand(ENTITIES[1], {script, command_bat})
             }
             entities[entity]()
             return command_bat
