@@ -10,7 +10,8 @@ new Promise((resolve, reject) => {
 })
     .then((bat_file) => {
         const bat_command_array = new BatCommandBuilder().generateCommandArray()
-        bat_file.editBat(bat_command_array.join('\n'))
+        const bat_command = bat_command_array.join('\n')
+        bat_file.editBat(bat_command)
         return bat_file
     })
     .then((bat_file) => {
