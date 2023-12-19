@@ -1,6 +1,6 @@
 import {generateId} from "../utils/id.js";
 
-export const APPLICATION = [
+export const APPLICATIONS = [
     {
         id: generateId(),
         name: 'itlabs-server',
