@@ -1,5 +1,6 @@
 import * as child_process from "child_process";
 
+const process = []
 
 export class Process {
     constructor() {
@@ -7,10 +8,8 @@ export class Process {
     }
 
     async runProcess(path) {
-        this.process.execSync(path)
+        const new_process = this.process.execSync(path)
+        process.push(new_process.toString())
     }
 
-    async runProject(command, path) {
-        this.process.execSync(command, {cwd: path})
-    }
 }

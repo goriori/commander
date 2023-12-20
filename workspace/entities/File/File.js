@@ -33,15 +33,12 @@ export class File_System {
     }
 
     createDir(path) {
-        console.time('createDir')
-        this.file_system.mkdir(path, {}, () => console.log('success create dir'))
-        console.timeEnd('createDir')
+        this.file_system.mkdirSync(path )
     }
 
     createFile(path) {
         this.file_system.open(path, 'w', (err, fd) => {
             if (err) return console.log(err)
-            console.log(fd)
         })
     }
 

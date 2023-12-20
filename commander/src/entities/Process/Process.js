@@ -8,8 +8,8 @@ export class Process {
 
     async runProject(command, path) {
         try {
-            await this.process.execSync(command, {cwd: path})
-            return true
+            const new_process = await this.process.execSync(command, {cwd: path})
+            return new_process
         } catch (e) {
             console.log(e)
             return false

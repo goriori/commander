@@ -1,9 +1,10 @@
 import {BatCommandBuilder} from './entities/File/Bat/builders/CommandBuilder.js'
 import {Bat} from './entities/File/index.js'
 import {Process} from "./entities/Process/Process.js";
-
+import {startApplication, endApplication} from "./utils/console-app/start-application.js";
 
 new Promise((resolve, reject) => {
+    // startApplication()
     const bat_file = new Bat('workspace')
     bat_file.createBat()
     resolve(bat_file)
@@ -21,5 +22,8 @@ new Promise((resolve, reject) => {
     })
     .then((bat_file) => {
         bat_file.deleteBat()
+    })
+    .finally(() => {
+        // endApplication()
     })
 

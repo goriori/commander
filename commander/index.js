@@ -1,3 +1,3 @@
 import {startHandler} from "./src/app.js";
 
-startHandler('Что будем делать сегодня? \n')
+await startHandler('Что будем делать сегодня? \n')
