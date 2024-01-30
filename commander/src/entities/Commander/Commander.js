@@ -2,6 +2,17 @@ import {commands} from "./Commander.option.js";
 import {Process} from "../Process/Process.js";
 import {APPLICATIONS} from "../../../application.config.js";
 import {GlobalProcess} from "../Process/GlobalProcess.js";
+import * as path from "path";
+import {File_System} from "../File/File.js";
+
+const file = new File_System()
+const __rootDir = (() => {
+    const __dirname = path.resolve()
+    const path_details = __dirname.split('\\')
+    path_details.pop()
+    return path.join(...path_details) + '\\logs'
+})()
+
 
 export class Commander {
     constructor() {
@@ -10,24 +21,27 @@ export class Commander {
     }
 
     async run(command) {
-        const existsCommand = this.commands.map(comm => comm.command).includes(command)
-        if (!existsCommand) return false
-        const actionCommander = this.commands.find(comm => comm.command === command).handler()
-        await this[actionCommander].call(this)
-        return true
+        const exists_command = this.commands.map(comm => comm.command).includes(command)
+        if (!exists_command) return false
+        const action_commander = this.commands.find(comm => comm.command === command).handler()
+        const result = await this[action_commander]()
+        console.log('result call function:  ', result)
+        return result
     }
 
 
     async openWorkspace() {
-
-        const process = new Process()
-        const output = await process.runProject(APPLICATIONS[1].command, APPLICATIONS[1].path)
-
-        const started_applications = output.toString().trim().split('\n')
-        console.log(this.globalProcess.all_process)
-        started_applications.forEach(process => this.globalProcess.addStartedProcess(process))
-
-        return true
+        try {
+            console.log('start openWorkspace')
+            const process = new Process()
+            await process.runProject(APPLICATIONS[1].command, APPLICATIONS[1].path)
+            const started_applications = JSON.parse(file.getFileContent(__rootDir + '\\files\\json\\application_run.json'))
+            started_applications.forEach(application => this.globalProcess.addStartedProcess(application))
+            return true
+        } catch (e) {
+            console.log(e)
+            return false
+        }
     }
 
     async test() {

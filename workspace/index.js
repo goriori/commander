@@ -1,29 +1,34 @@
 import {BatCommandBuilder} from './entities/File/Bat/builders/CommandBuilder.js'
 import {Bat} from './entities/File/index.js'
 import {Process} from "./entities/Process/Process.js";
-import {startApplication, endApplication} from "./utils/console-app/start-application.js";
+import {Json} from "./entities/File/JSON/Json.js";
+import {applicationsParser} from "./utils/parsers/application.parser.js";
 
-new Promise((resolve, reject) => {
-    // startApplication()
-    const bat_file = new Bat('workspace')
-    bat_file.createBat()
-    resolve(bat_file)
-})
-    .then((bat_file) => {
+(() => {
+    return new Promise((resolve, reject) => {
+        const bat_file = new Bat('workspace')
+        bat_file.createBat()
         const bat_command_array = new BatCommandBuilder().generateCommandArray()
         const bat_command = bat_command_array.join('\n')
         bat_file.editBat(bat_command)
-        return bat_file
+
+        return resolve({bat_file, bat_command_array})
     })
-    .then((bat_file) => {
-        const process = new Process()
-        process.runProcess(bat_file.path_to_file)
-        return bat_file
-    })
-    .then((bat_file) => {
-        bat_file.deleteBat()
-    })
-    .finally(() => {
-        // endApplication()
-    })
+        .then(({bat_file, bat_command_array}) => {
+            const applications_run = new Set(applicationsParser(bat_command_array))
+            const application_to_json = new Json('application_run')
+            application_to_json.createJSON()
+            application_to_json.editJSON([...applications_run])
+
+            return {bat_file, application_to_json}
+        })
+        .then(({bat_file, application_to_json}) => {
+            const process = new Process()
+            process.runProcess(bat_file.path_to_file)
+            return {bat_file, application_to_json}
+        })
+
+
+})()
+
 

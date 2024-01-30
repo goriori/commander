@@ -34,6 +34,12 @@ export default [
         path: null
     },
     {
+        entity: 'browser-page',
+        name: 'bybit',
+        href: 'https://www.bybit.com/ru-RU/trade/spot/BTC/USDT',
+        path: null
+    },
+    {
         entity: 'application',
         name: 'web-storm',
         href: null,
@@ -45,5 +51,10 @@ export default [
         href: null,
         path: 'C:\\goriori\\programms\\Telegram Desktop\\Telegram.exe'
     },
-
+    {
+        entity: 'application',
+        name: 'obsidian',
+        href: null,
+        path: 'C:\\goriori\\programms\\obsidian\\Obsidian.exe'
+    },
 ]

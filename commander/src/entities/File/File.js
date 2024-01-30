@@ -19,15 +19,12 @@ export class File_System {
 
 
     createDir(path) {
-        console.time('createDir')
-        this.file_system.mkdir(path, {}, () => console.log('success create dir'))
-        console.timeEnd('createDir')
+        this.file_system.mkdir(path, {}, () => true)
     }
 
     createFile(path) {
         this.file_system.open(path, 'w', (err, fd) => {
             if (err) return console.log(err)
-            console.log(fd)
         })
     }
 
@@ -43,8 +40,12 @@ export class File_System {
     editFile(path, data, type = 'BAT') {
         let convertData
         if (type === 'JSON') convertData = JSON.stringify(data)
-        if (type === 'BAT') convertData = data
+        if (type === 'BAT' || type === 'STRING') convertData = data
         this.file_system.appendFileSync(path, convertData)
+    }
+
+    getFileContent(path) {
+       return this.file_system.readFileSync(path, {encoding:'utf8'})
     }
 
 }

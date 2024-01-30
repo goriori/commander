@@ -8,8 +8,8 @@ export class BatCommandBuilder {
     #buildCommand(entity, option = {script: '', command_bat: ''}) {
         const {script, command_bat} = option
         const entities = {
-            [ENTITIES[0]]: () => this.#createCommandBrowser(command_bat, script),
-            [ENTITIES[1]]: () => this.#createCommandApplication(command_bat, script)
+            [ENTITIES[0]]: () => this.createCommandBrowser(command_bat, script),
+            [ENTITIES[1]]: () => this.createCommandApplication(command_bat, script)
         }
         return entities[entity].call()
     }
@@ -50,7 +50,6 @@ export class BatCommandBuilder {
         command_bat += `cd ${path_to_file} \n`
         command_bat += `start ${application_file}`
 
-        console.log(application_file)
         return command_bat
     }
 }

@@ -1,9 +1,6 @@
 import * as fs from "fs";
-import * as path from "path";
 import {DIR_ENTITIES, DIR_FOR_FILES} from "../../settings.config.js";
-
-
-const __dirname = path.resolve()
+import {__dirname} from "../../utils/path/__dirname.js";
 
 export class File_System {
     constructor(file_name = '', type = '') {
@@ -47,10 +44,13 @@ export class File_System {
     }
 
     findFile(path) {
-        const file = this.file_system.existsSync(path)
-        return file
+        return this.file_system.existsSync(path)
+
     }
 
+    redFile(path) {
+        return this.file_system.readFileSync(path)
+    }
     editFile(path, data, type = 'BAT') {
         let convertData
         if (type === 'JSON') convertData = JSON.stringify(data)

@@ -1,8 +1,10 @@
 import readline from "readline";
-import {EXPECTATION_TIME} from "../../../setting.config.js";
-
+import * as fs from "fs";
 // TODO: При вводе пустого значения в консоль - вывдиться undefined но ввод продолжается.
 
+// TODO: Надо разобраться с отслеживанием момента создания конфигурационного файла commander.config.json для распаковки его свойств.
+const exist = fs.existsSync('../../../../commander.config.js')
+console.log(exist)
 export class Readline {
     #message_timeout
 
@@ -13,7 +15,7 @@ export class Readline {
         })
         this.#initEvents()
         this.#message_timeout = 'Время ожидания вышло'
-        this.signal = AbortSignal.timeout(EXPECTATION_TIME * 60000)
+        this.signal = AbortSignal.timeout(10 * 60000)
         this.signal.addEventListener('abort', () => {
             console.log(this.#message_timeout)
             process.exit(0)
@@ -24,9 +26,11 @@ export class Readline {
     question(question) {
         return new Promise((resolve, reject) => this.rl.question(question, {signal: this.signal}, resolve))
     }
+
     write(message) {
         return this.rl.write(message)
     }
+
     #initEvents() {
         this.#initOnResume()
         this.#initOnInput()
@@ -34,12 +38,13 @@ export class Readline {
     }
 
     #initOnResume() {
-        this.rl.addListener('resume',()=> {
+        this.rl.addListener('resume', () => {
             console.log('readline resume')
         })
     }
-    #initOnInput(){
-        this.rl.addListener('line',(message)=> {
+
+    #initOnInput() {
+        this.rl.addListener('line', (message) => {
             console.log('on message: ', message)
         })
     }
